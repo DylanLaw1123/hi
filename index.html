@@ -1,229 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>⚠️ Totally Hacked (jk)</title>
+  <meta charset="UTF-8">
+  <title>Hacked Prank</title>
   <style>
-    :root{
-      --bg:#020617; /* slate-950 */
-      --neon:#22c55e; /* green */
-      --accent:#ef4444; /* red */
-      --muted:#a3a3a3;
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 80px;
     }
-    html,body{height:100%;}
-    body{
-      margin:0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      background: radial-gradient(1200px 600px at 70% 10%, #04161a 0%, var(--bg) 50%, #000 100%),
-                  repeating-linear-gradient(180deg, rgba(255,255,255,.02) 0 2px, transparent 2px 4px);
-      color: #e5e7eb; overflow:hidden;
+    h1 {
+      font-size: 2.5em;
     }
-    .scanlines::after{
-      content:""; position:fixed; inset:0; pointer-events:none;
-      background: repeating-linear-gradient(transparent 0 2px, rgba(255,255,255,.04) 2px 3px);
-      mix-blend-mode: overlay; opacity:.4; animation: flicker 3s infinite linear;
+    #progress-container {
+      width: 60%;
+      height: 30px;
+      border: 2px solid lime;
+      margin: 30px auto 10px auto;
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes flicker{ 0%,100%{opacity:.3} 50%{opacity:.45} }
-
-    .wrap{ position:relative; height:100%; display:grid; grid-template-rows:auto 1fr auto; }
-
-    header{ display:flex; align-items:center; gap:.75rem; padding:12px 16px; background:#00000055; backdrop-filter: blur(6px);
-      border-bottom:1px solid #0a0a0a; }
-    .led{ width:10px; height:10px; border-radius:50%; background: var(--accent); box-shadow:0 0 16px var(--accent); animation: blink 1s infinite; }
-    @keyframes blink{ 50%{ filter:brightness(60%);} }
-    .title{ font-weight:700; letter-spacing:.08em; color:#fca5a5; }
-
-    .hero{ display:grid; place-items:center; padding:24px; }
-    .warning{ text-align:center; }
-    .warning h1{
-      font-size: clamp(28px, 6vw, 88px);
-      color: var(--accent);
-      text-shadow: 0 0 12px rgba(239,68,68,.8), 0 0 32px rgba(239,68,68,.3);
-      margin:.2em 0 .1em; letter-spacing:.05em;
-      animation: wobble 1.2s ease-in-out infinite;
+    #progress-bar {
+      width: 0;
+      height: 100%;
+      background: lime;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
-    @keyframes wobble{ 0%,100%{ transform:skewX(0deg);} 25%{ transform:skewX(-3deg);} 75%{ transform:skewX(3deg);} }
-
-    .sub{ color:#fecaca; opacity:.9; font-size:clamp(12px,2.2vw,18px); }
-
-    .progress{ width:min(720px, 92vw); height:14px; border:1px solid #991b1b; border-radius:999px; margin:14px auto 0; padding:2px; }
-    .bar{ height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); border-radius:999px; transition: width .08s linear; box-shadow: 0 0 8px #ef4444; }
-
-    .terminal{ width:min(980px,96vw); margin:20px auto; background:#020812; border:1px solid #0b1220; border-radius:12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.4);
+    #progress-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      line-height: 30px;
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+      font-weight: bold;
+      z-index: 2;
     }
-    .term-head{ display:flex; align-items:center; gap:8px; padding:10px; background:#0b1220; border-bottom:1px solid #0f172a; }
-    .dot{ width:10px; height:10px; border-radius:50%; }
-    .dot.red{background:#ef4444} .dot.yellow{background:#f59e0b} .dot.green{background:#22c55e}
-    .term-body{ height:min(42vh, 420px); padding:14px; color:#d1fae5; font-size:14px; line-height:1.4; overflow:auto; }
-    .line{ white-space: pre-wrap; }
-    .prompt{ color: var(--neon); }
-
-    footer{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; padding:12px; color:#94a3b8; font-size:14px; }
-    .btn{ cursor:pointer; border:1px solid #334155; background:#0b1220; color:#cbd5e1; padding:10px 14px; border-radius:999px; transition: transform .08s ease, background .2s;
-      user-select:none; }
-    .btn:hover{ transform: translateY(-1px); background:#111827; }
-    .btn.positive{ border-color:#065f46; }
-
-    .hidden{ display:none !important; }
-    .reveal{ color:#16a34a; font-weight:700; text-shadow:0 0 10px #16a34a; }
-
-    /* Glitchy corner badge */
-    .badge{ position: fixed; right:14px; bottom:14px; background:#111827; border:1px solid #334155; padding:8px 12px; border-radius:10px; font-size:12px; opacity:.85; }
-
-    /* Confetti canvas */
-    #confetti{ position:fixed; inset:0; pointer-events:none; }
+    .message {
+      display: none;
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+    #question {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.3em;
+    }
+    #finalMessage {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.4em;
+      white-space: pre-line;
+    }
+    button {
+      background: lime;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
-<body class="scanlines">
-  <!-- Harmless, silly prank page. No data is collected; nothing is real.  -->
-  <canvas id="confetti"></canvas>
-  <div class="wrap">
-    <header>
-      <div class="led" aria-hidden></div>
-      <div class="title">INTRUSION DETECTED — SYSTEM COMPROMISED</div>
-      <div style="margin-left:auto; font-size:12px; color:#64748b">mode: <strong style="color:#f87171">CHAOS</strong></div>
-    </header>
+<body>
+  <h1 id="title">YOU HAVE BEEN HACKED</h1>
 
-    <main class="hero">
-      <div class="warning">
-        <h1>YOU'VE BEEN HACKED*</h1>
-        <div class="sub">*by a very silly website 🤡 — keep calm and watch the drama</div>
-        <div class="progress" aria-label="scan progress"><div class="bar" id="bar"></div></div>
-      </div>
-
-      <section class="terminal" aria-live="polite">
-        <div class="term-head"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:8px;color:#8b5cf6">root@totally-not-sus:/</span></div>
-        <div class="term-body" id="term"></div>
-      </section>
-    </main>
-
-    <footer>
-      <button class="btn" id="panic">Panic Button</button>
-      <button class="btn positive hidden" id="itsJoke">Ok fine, admit it</button>
-      <button class="btn" id="flash">Flash Lights</button>
-      <button class="btn" id="again">Run Prank Again</button>
-      <span id="status">Press <b>Panic Button</b> anytime to reveal the joke.</span>
-    </footer>
+  <div id="loading">
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+      <div id="progress-text">0%</div>
+    </div>
+    <div id="msg1" class="message">Accessing your files...</div>
+    <div id="msg2" class="message">Stealing your secrets...</div>
+    <div id="msg3" class="message">Uploading data to the dark web...</div>
+    <div id="msg4" class="message">Almost done...</div>
   </div>
 
-  <div class="badge">100% harmless prank • Made for laughs</div>
+  <div id="question">
+    <p>Do you want me to tell everyone your secret?</p>
+    <button onclick="showFinal(true)">YES</button>
+    <button onclick="showFinal(false)">NO</button>
+  </div>
+
+  <div id="finalMessage"></div>
 
   <script>
-    const term = document.getElementById('term');
-    const bar = document.getElementById('bar');
-    const status = document.getElementById('status');
-    const panic = document.getElementById('panic');
-    const flash = document.getElementById('flash');
-    const again = document.getElementById('again');
-    const itsJoke = document.getElementById('itsJoke');
-
-    const lines = [
-      '[!] Connecting to super serious hack server…',
-      '[✓] Handshake complete. Initiating 🍪 cookie heist…',
-      '[!] Deploying quantum rubber duck debugger…',
-      '[✓] Found 0 vulnerabilities. Making some for fun…',
-      '[>] Installing package: totally-not-a-virus@1.0.0',
-      '[!] Compiling memes… █▒▒▒▒▒▒▒',
-      '[✓] Meme power at 9000+',
-      '[>] Bribing firewall with pizza…',
-      '[✓] Firewall now full and sleepy.',
-      '[>] Printing your secrets: "I still use IE"',
-      '[!] ALERT: cat stepped on keyboard!!!',
-      '[✓] Situation resolved with treats.',
-      '[>] Encrypting… decrypting… re-encrypting for vibes…',
-      '[✓] Operation complete: dramatic effect achieved.'
+    let progress = 0;
+    let progressBar = document.getElementById("progress-bar");
+    let progressText = document.getElementById("progress-text");
+    let messages = [
+      document.getElementById("msg1"),
+      document.getElementById("msg2"),
+      document.getElementById("msg3"),
+      document.getElementById("msg4")
     ];
 
-    let i = 0, progress = 0, typing, ticking, flashed=false, revealed=false;
+    let interval = setInterval(() => {
+      if (progress < 100) {
+        progress++;
+        progressBar.style.width = progress + "%";
+        progressText.textContent = progress + "%";
 
-    function typeNext(){
-      if(i >= lines.length){ clearInterval(typing); revealButton(); return; }
-      const el = document.createElement('div');
-      el.className = 'line';
-      el.innerHTML = '<span class="prompt">root@you:</span> ' + lines[i++];
-      term.appendChild(el);
-      term.scrollTop = term.scrollHeight;
-    }
+        if (progress === 25) messages[0].style.display = "block";
+        if (progress === 50) messages[1].style.display = "block";
+        if (progress === 75) messages[2].style.display = "block";
+        if (progress === 95) messages[3].style.display = "block";
 
-    function tickBar(){
-      progress = Math.min(100, progress + Math.random()*5 + 1);
-      bar.style.width = progress + '%';
-      if(progress >= 100){ clearInterval(ticking); revealButton(); }
-    }
-
-    function revealButton(){ itsJoke.classList.remove('hidden'); status.textContent = 'Click "Ok fine, admit it" to reveal the prank.'; }
-
-    function revealJoke(){
-      revealed = true;
-      document.querySelector('h1').innerHTML = 'JUST KIDDING — YOU ARE SAFE 🥳';
-      document.querySelector('h1').classList.remove('wobble');
-      document.querySelector('.sub').textContent = 'This is a prank page. No data was touched. Have a laugh and share!';
-      status.innerHTML = 'Want more chaos? Hit <b>Run Prank Again</b>.';
-      launchConfetti();
-      navigator.vibrate && navigator.vibrate([50, 50, 50]);
-      itsJoke.classList.add('hidden');
-    }
-
-    function reset(){
-      revealed=false; i=0; progress=0; term.innerHTML=''; bar.style.width='0%'; itsJoke.classList.add('hidden');
-      status.innerHTML = 'Press <b>Panic Button</b> anytime to reveal the joke.';
-      clearInterval(typing); clearInterval(ticking);
-      typing = setInterval(typeNext, 480);
-      ticking = setInterval(tickBar, 150);
-    }
-
-    panic.addEventListener('click', revealJoke);
-    itsJoke.addEventListener('click', revealJoke);
-    again.addEventListener('click', reset);
-
-    flash.addEventListener('click', ()=>{
-      flashed = !flashed;
-      flash.textContent = flashed ? 'Stop Flash' : 'Flash Lights';
-      if(flashed){
-        document.body.style.transition = 'none';
-        flashLoop();
+      } else {
+        clearInterval(interval);
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("title").textContent = "JUST KIDDING 😂";
+        document.getElementById("question").style.display = "block";
       }
-    });
+    }, 100); // 100ms per step → 10s total
 
-    function flashLoop(){
-      if(!flashed) return;
-      document.body.style.background = `hsl(${Math.floor(Math.random()*360)} 90% 6%)`;
-      setTimeout(flashLoop, 120);
+    function showFinal(answer) {
+      document.getElementById("question").style.display = "none";
+      let final = document.getElementById("finalMessage");
+      final.style.display = "block";
+      if (answer) {
+        final.textContent = "JUST KIDDING 😂\nNOW YOU CAN CLOSE THIS WEBSITE";
+      } else {
+        final.textContent = "TOO LATE, I ALREADY TELL THEM 🤣\nHAHA JUST KIDDING\nNOW YOU CAN CLOSE THIS WEBSITE";
+      }
     }
-
-    // Confetti — tiny vanilla implementation
-    const cvs = document.getElementById('confetti');
-    const ctx = cvs.getContext('2d');
-    let pieces = []; let confettiTimer;
-    function launchConfetti(){
-      resize();
-      pieces = new Array(160).fill(0).map(()=>({
-        x: Math.random()*cvs.width, y: -10 - Math.random()*cvs.height,
-        s: 4+Math.random()*6, r: Math.random()*360, v: 2+Math.random()*3
-      }));
-      cancelAnimationFrame(confettiTimer);
-      drawConfetti();
-      setTimeout(()=>{ pieces=[]; }, 3000);
-    }
-    function drawConfetti(){
-      ctx.clearRect(0,0,cvs.width,cvs.height);
-      pieces.forEach(p=>{
-        p.y += p.v; p.r += 6; if(p.y>cvs.height+20) p.y=-10;
-        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r*Math.PI/180);
-        ctx.fillStyle = `hsl(${(p.r%360)} 90% 60%)`;
-        ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);
-        ctx.restore();
-      });
-      confettiTimer = requestAnimationFrame(drawConfetti);
-    }
-    function resize(){ cvs.width = innerWidth; cvs.height = innerHeight; }
-    addEventListener('resize', resize);
-
-    // Start the show
-    reset();
-
-    // Safety: auto-reveal after 9s so nobody panics too long
-    setTimeout(()=>{ if(!revealed) revealJoke(); }, 9000);
   </script>
 </body>
 </html>
