@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>⚠️ Totally Hacked (jk)</title>
+  <title>⚠️ Tracking Device</title>
   <style>
     :root{
       --bg:#020617; /* slate-950 */
@@ -87,12 +87,12 @@
     <main class="hero">
       <div class="warning">
         <h1>YOU'VE BEEN HACKED*</h1>
-        <div class="sub">*by a very silly website 🤡 — keep calm and watch the drama</div>
+        <div class="sub">*being hacked and tracked. Theres nothing you can do.</div>
         <div class="progress" aria-label="scan progress"><div class="bar" id="bar"></div></div>
       </div>
 
       <section class="terminal" aria-live="polite">
-        <div class="term-head"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:8px;color:#8b5cf6">root@totally-not-sus:/</span></div>
+        <div class="term-head"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:8px;color:#8b5cf6">root@starz:/</span></div>
         <div class="term-body" id="term"></div>
       </section>
     </main>
@@ -140,7 +140,7 @@
       if(i >= lines.length){ clearInterval(typing); revealButton(); return; }
       const el = document.createElement('div');
       el.className = 'line';
-      el.innerHTML = '<span class="prompt">root@you:</span> ' + lines[i++];
+      el.innerHTML = '<span class="prompt">root@starz:</span> ' + lines[i++];
       term.appendChild(el);
       term.scrollTop = term.scrollHeight;
     }
