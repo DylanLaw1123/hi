@@ -6,9 +6,9 @@
   <title>⚠️ Totally Hacked (jk)</title>
   <style>
     :root{
-      --bg:#020617; /* slate-950 */
-      --neon:#22c55e; /* green */
-      --accent:#ef4444; /* red */
+      --bg:#020617;
+      --neon:#22c55e;
+      --accent:#ef4444;
       --muted:#a3a3a3;
     }
     html,body{height:100%;}
@@ -18,64 +18,40 @@
                   repeating-linear-gradient(180deg, rgba(255,255,255,.02) 0 2px, transparent 2px 4px);
       color: #e5e7eb; overflow:hidden;
     }
-    .scanlines::after{
-      content:""; position:fixed; inset:0; pointer-events:none;
+    .scanlines::after{content:""; position:fixed; inset:0; pointer-events:none;
       background: repeating-linear-gradient(transparent 0 2px, rgba(255,255,255,.04) 2px 3px);
-      mix-blend-mode: overlay; opacity:.4; animation: flicker 3s infinite linear;
-    }
-    @keyframes flicker{ 0%,100%{opacity:.3} 50%{opacity:.45} }
-
-    .wrap{ position:relative; height:100%; display:grid; grid-template-rows:auto 1fr auto; }
-
-    header{ display:flex; align-items:center; gap:.75rem; padding:12px 16px; background:#00000055; backdrop-filter: blur(6px);
-      border-bottom:1px solid #0a0a0a; }
-    .led{ width:10px; height:10px; border-radius:50%; background: var(--accent); box-shadow:0 0 16px var(--accent); animation: blink 1s infinite; }
-    @keyframes blink{ 50%{ filter:brightness(60%);} }
-    .title{ font-weight:700; letter-spacing:.08em; color:#fca5a5; }
-
-    .hero{ display:grid; place-items:center; padding:24px; }
-    .warning{ text-align:center; }
-    .warning h1{
-      font-size: clamp(28px, 6vw, 88px);
-      color: var(--accent);
-      text-shadow: 0 0 12px rgba(239,68,68,.8), 0 0 32px rgba(239,68,68,.3);
-      margin:.2em 0 .1em; letter-spacing:.05em;
-      animation: wobble 1.2s ease-in-out infinite;
-    }
-    @keyframes wobble{ 0%,100%{ transform:skewX(0deg);} 25%{ transform:skewX(-3deg);} 75%{ transform:skewX(3deg);} }
-
-    .sub{ color:#fecaca; opacity:.9; font-size:clamp(12px,2.2vw,18px); }
-
-    .progress{ width:min(720px, 92vw); height:14px; border:1px solid #991b1b; border-radius:999px; margin:14px auto 0; padding:2px; }
-    .bar{ height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); border-radius:999px; transition: width .08s linear; box-shadow: 0 0 8px #ef4444; }
-
-    .terminal{ width:min(980px,96vw); margin:20px auto; background:#020812; border:1px solid #0b1220; border-radius:12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.4);
-    }
-    .term-head{ display:flex; align-items:center; gap:8px; padding:10px; background:#0b1220; border-bottom:1px solid #0f172a; }
-    .dot{ width:10px; height:10px; border-radius:50%; }
+      mix-blend-mode: overlay; opacity:.4; animation: flicker 3s infinite linear;}
+    @keyframes flicker{0%,100%{opacity:.3} 50%{opacity:.45}}
+    .wrap{position:relative; height:100%; display:grid; grid-template-rows:auto 1fr auto;}
+    header{display:flex; align-items:center; gap:.75rem; padding:12px 16px; background:#00000055; backdrop-filter: blur(6px); border-bottom:1px solid #0a0a0a;}
+    .led{width:10px; height:10px; border-radius:50%; background: var(--accent); box-shadow:0 0 16px var(--accent); animation: blink 1s infinite;}
+    @keyframes blink{50%{filter:brightness(60%);}}
+    .title{font-weight:700; letter-spacing:.08em; color:#fca5a5;}
+    .hero{display:grid; place-items:center; padding:24px;}
+    .warning{text-align:center;}
+    .warning h1{font-size: clamp(28px, 6vw, 88px); color: var(--accent); text-shadow: 0 0 12px rgba(239,68,68,.8), 0 0 32px rgba(239,68,68,.3); margin:.2em 0 .1em; letter-spacing:.05em; animation: wobble 1.2s ease-in-out infinite;}
+    @keyframes wobble{0%,100%{transform:skewX(0deg);} 25%{transform:skewX(-3deg);} 75%{transform:skewX(3deg);}}
+    .sub{color:#fecaca; opacity:.9; font-size:clamp(12px,2.2vw,18px);}
+    .progress{width:min(720px, 92vw); height:14px; border:1px solid #991b1b; border-radius:999px; margin:14px auto 0; padding:2px;}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); border-radius:999px; transition: width .08s linear; box-shadow: 0 0 8px #ef4444;}
+    .terminal{width:min(980px,96vw); margin:20px auto; background:#020812; border:1px solid #0b1220; border-radius:12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.4);}
+    .term-head{display:flex; align-items:center; gap:8px; padding:10px; background:#0b1220; border-bottom:1px solid #0f172a;}
+    .dot{width:10px; height:10px; border-radius:50%;}
     .dot.red{background:#ef4444} .dot.yellow{background:#f59e0b} .dot.green{background:#22c55e}
-    .term-body{ height:min(42vh, 420px); padding:14px; color:#d1fae5; font-size:14px; line-height:1.4; overflow:auto; }
-    .line{ white-space: pre-wrap; }
-    .prompt{ color: var(--neon); }
-
-    footer{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; padding:12px; color:#94a3b8; font-size:14px; }
-    .btn{ cursor:pointer; border:1px solid #334155; background:#0b1220; color:#cbd5e1; padding:10px 14px; border-radius:999px; transition: transform .08s ease, background .2s;
-      user-select:none; }
-    .btn:hover{ transform: translateY(-1px); background:#111827; }
-    .btn.positive{ border-color:#065f46; }
-
-    .hidden{ display:none !important; }
-    .reveal{ color:#16a34a; font-weight:700; text-shadow:0 0 10px #16a34a; }
-
-    /* Glitchy corner badge */
-    .badge{ position: fixed; right:14px; bottom:14px; background:#111827; border:1px solid #334155; padding:8px 12px; border-radius:10px; font-size:12px; opacity:.85; }
-
-    /* Confetti canvas */
-    #confetti{ position:fixed; inset:0; pointer-events:none; }
+    .term-body{height:min(42vh, 420px); padding:14px; color:#d1fae5; font-size:14px; line-height:1.4; overflow:auto;}
+    .line{white-space: pre-wrap;}
+    .prompt{color: var(--neon);}
+    footer{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; padding:12px; color:#94a3b8; font-size:14px;}
+    .btn{cursor:pointer; border:1px solid #334155; background:#0b1220; color:#cbd5e1; padding:10px 14px; border-radius:999px; transition: transform .08s ease, background .2s; user-select:none;}
+    .btn:hover{transform: translateY(-1px); background:#111827;}
+    .btn.positive{border-color:#065f46;}
+    .hidden{display:none !important;}
+    .reveal{color:#16a34a; font-weight:700; text-shadow:0 0 10px #16a34a;}
+    .badge{position: fixed; right:14px; bottom:14px; background:#111827; border:1px solid #334155; padding:8px 12px; border-radius:10px; font-size:12px; opacity:.85;}
+    #confetti{position:fixed; inset:0; pointer-events:none;}
   </style>
 </head>
 <body class="scanlines">
-  <!-- Harmless, silly prank page. No data is collected; nothing is real.  -->
   <canvas id="confetti"></canvas>
   <div class="wrap">
     <header>
@@ -83,20 +59,17 @@
       <div class="title">INTRUSION DETECTED — SYSTEM COMPROMISED</div>
       <div style="margin-left:auto; font-size:12px; color:#64748b">mode: <strong style="color:#f87171">CHAOS</strong></div>
     </header>
-
     <main class="hero">
       <div class="warning">
         <h1>YOU'VE BEEN HACKED*</h1>
         <div class="sub">*by a very silly website 🤡 — keep calm and watch the drama</div>
         <div class="progress" aria-label="scan progress"><div class="bar" id="bar"></div></div>
       </div>
-
       <section class="terminal" aria-live="polite">
         <div class="term-head"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span style="margin-left:8px;color:#8b5cf6">root@totally-not-sus:/</span></div>
         <div class="term-body" id="term"></div>
       </section>
     </main>
-
     <footer>
       <button class="btn" id="panic">Panic Button</button>
       <button class="btn positive hidden" id="itsJoke">Ok fine, admit it</button>
@@ -105,9 +78,7 @@
       <span id="status">Press <b>Panic Button</b> anytime to reveal the joke.</span>
     </footer>
   </div>
-
   <div class="badge">100% harmless prank • Made for laughs</div>
-
   <script>
     const term = document.getElementById('term');
     const bar = document.getElementById('bar');
@@ -131,7 +102,20 @@
       '[!] ALERT: cat stepped on keyboard!!!',
       '[✓] Situation resolved with treats.',
       '[>] Encrypting… decrypting… re-encrypting for vibes…',
-      '[✓] Operation complete: dramatic effect achieved.'
+      '[✓] Operation complete: dramatic effect achieved.',
+      '[>] Hijacking the coffee machine ☕… success.',
+      '[!] Warning: too many dad jokes incoming…',
+      '[>] Loading 9999 funny GIFs into RAM…',
+      '[✓] Your PC is now 300% sillier.',
+      '[>] Launching dance.exe 💃…',
+      '[✓] Dance completed, style points awarded.',
+      '[>] Scanning… 42%… 84%… 101%???',
+      '[!] ERROR: Fun overload. Reticulating splines…',
+      '[✓] Splines successfully reticulated.',
+      '[>] Uploading bad puns to /system32/jokes…',
+      '[✓] Pun injection complete.',
+      '[>] Hacking the mainframe… just kidding.',
+      '[✓] All operations finished — dramatic climax reached.'
     ];
 
     let i = 0, progress = 0, typing, ticking, flashed=false, revealed=false;
@@ -146,7 +130,7 @@
     }
 
     function tickBar(){
-      progress = Math.min(100, progress + Math.random()*5 + 1);
+      progress = Math.min(100, progress + Math.random()*3 + 0.5);
       bar.style.width = progress + '%';
       if(progress >= 100){ clearInterval(ticking); revealButton(); }
     }
@@ -168,8 +152,8 @@
       revealed=false; i=0; progress=0; term.innerHTML=''; bar.style.width='0%'; itsJoke.classList.add('hidden');
       status.innerHTML = 'Press <b>Panic Button</b> anytime to reveal the joke.';
       clearInterval(typing); clearInterval(ticking);
-      typing = setInterval(typeNext, 480);
-      ticking = setInterval(tickBar, 150);
+      typing = setInterval(typeNext, 520);
+      ticking = setInterval(tickBar, 180);
     }
 
     panic.addEventListener('click', revealJoke);
@@ -191,7 +175,6 @@
       setTimeout(flashLoop, 120);
     }
 
-    // Confetti — tiny vanilla implementation
     const cvs = document.getElementById('confetti');
     const ctx = cvs.getContext('2d');
     let pieces = []; let confettiTimer;
@@ -203,7 +186,7 @@
       }));
       cancelAnimationFrame(confettiTimer);
       drawConfetti();
-      setTimeout(()=>{ pieces=[]; }, 3000);
+      setTimeout(()=>{ pieces=[]; }, 4000);
     }
     function drawConfetti(){
       ctx.clearRect(0,0,cvs.width,cvs.height);
@@ -219,11 +202,9 @@
     function resize(){ cvs.width = innerWidth; cvs.height = innerHeight; }
     addEventListener('resize', resize);
 
-    // Start the show
     reset();
 
-    // Safety: auto-reveal after 9s so nobody panics too long
-    setTimeout(()=>{ if(!revealed) revealJoke(); }, 9000);
+    setTimeout(()=>{ if(!revealed) revealJoke(); }, 13000);
   </script>
 </body>
 </html>
